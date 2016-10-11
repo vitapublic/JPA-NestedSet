@@ -211,7 +211,7 @@ public class JpaNestedSetManager implements NestedSetManager {
         Configuration config = getConfig(root.getClass());
 
         int maximumRight;
-        if (config.hasManyRoots() != true) {
+        if (config.hasManyRoots()) {
             maximumRight = 0;
         } else {
             maximumRight = getMaximumRight(root.getClass());
@@ -223,6 +223,11 @@ public class JpaNestedSetManager implements NestedSetManager {
             root.setRootValue(defaultRootId);
         }
         em.persist(root);
+
+		// We need to set the root.root as root.id
+		root.setRootValue(root.getId());
+		em.persist(root);
+
         return getNode(root);
     }
 
