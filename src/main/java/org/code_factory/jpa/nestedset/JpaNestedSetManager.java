@@ -223,11 +223,12 @@ public class JpaNestedSetManager implements NestedSetManager {
             root.setRootValue(defaultRootId);
         }
         em.persist(root);
-
+		
 		// We need to set the root.root as root.id
 		root.setRootValue(root.getId());
+		System.out.println("root id: " + root.getId() + ". root root: " + root.getRoot());
 		em.persist(root);
-
+		
         return getNode(root);
     }
 
