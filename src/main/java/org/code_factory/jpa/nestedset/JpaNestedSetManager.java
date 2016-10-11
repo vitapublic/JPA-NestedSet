@@ -211,7 +211,7 @@ public class JpaNestedSetManager implements NestedSetManager {
         Configuration config = getConfig(root.getClass());
 
         int maximumRight;
-        if (config.hasManyRoots()) {
+        if (!config.hasManyRoots()) {
             maximumRight = 0;
         } else {
             maximumRight = getMaximumRight(root.getClass());
