@@ -208,6 +208,8 @@ public class JpaNestedSetManager implements NestedSetManager {
      */
     @Override
     public <T extends NodeInfo> Node<T> createRoot(T root) {
+		System.out.println("test");
+		
         Configuration config = getConfig(root.getClass());
 
         int maximumRight;
@@ -226,7 +228,7 @@ public class JpaNestedSetManager implements NestedSetManager {
 		
 		// We need to set the root.root as root.id
 		root.setRootValue(root.getId());
-		System.out.println("root id: " + root.getId() + ". root root: " + root.getRoot());
+		//System.out.println("root id: " + root.getId() + ". root root: " + root.getRoot());
 		em.persist(root);
 		
         return getNode(root);
