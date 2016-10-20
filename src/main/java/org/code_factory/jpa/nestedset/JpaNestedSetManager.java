@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+
 import javax.inject.Inject;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -28,12 +29,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import net.jcip.annotations.NotThreadSafe;
 import org.code_factory.jpa.nestedset.annotations.LeftColumn;
 import org.code_factory.jpa.nestedset.annotations.LevelColumn;
 import org.code_factory.jpa.nestedset.annotations.RightColumn;
 import org.code_factory.jpa.nestedset.annotations.RootColumn;
 import org.hibernate.transform.AliasToEntityMapResultTransformer;
+
+import net.jcip.annotations.NotThreadSafe;
 
 /**
  * @author Roman Borschel <roman@code-factory.org>
@@ -223,11 +225,11 @@ public class JpaNestedSetManager implements NestedSetManager {
             root.setRootValue(defaultRootId);
         }
         em.persist(root);
-		
-		// We need to set the root.root as root.id
-		// root.setRootValue(root.getId());
-		// em.persist(root);
-		
+
+		//We need to set the root.root as root.id
+		root.setRootValue(root.getId());
+		em.persist(root);
+
         return getNode(root);
     }
 

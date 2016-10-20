@@ -21,15 +21,12 @@ public class MultiRootNodeTest extends FunctionalNestedSetTest {
     public void testCreateTrees() {
         Category javaCat = new Category();
         javaCat.setName("Java");
-        javaCat.setRootValue(1L);
 
         Category netCat = new Category();
         netCat.setName(".NET");
-        netCat.setRootValue(2L);
 
         Category phpCat = new Category();
         phpCat.setName("PHP");
-        phpCat.setRootValue(3L);
 
         em.getTransaction().begin();
         nsm.createRoot(javaCat);
@@ -51,14 +48,17 @@ public class MultiRootNodeTest extends FunctionalNestedSetTest {
         Node<Category> ejbNode = javaNode.addChild(ejbCat);
         em.getTransaction().commit();
 
+        assert javaCat.getId() == javaCat.getRootValue();
         assert 1 == javaCat.getLeftValue();
         assert 2 == ejbCat.getLeftValue();
         assert 3 == ejbCat.getRightValue();
         assert 1 == ejbCat.getLevel();
-        assert 1 == ejbCat.getRootValue();
+        assert javaCat.getId() == ejbCat.getRootValue();
         assert 4 == javaCat.getRightValue();
+        assert netCat.getId() == netCat.getRootValue();
         assert 1 == netCat.getLeftValue();
         assert 2 == netCat.getRightValue();
+        assert phpCat.getId() == phpCat.getRootValue();
         assert 1 == phpCat.getLeftValue();
         assert 2 == phpCat.getRightValue();
 
@@ -85,5 +85,5 @@ public class MultiRootNodeTest extends FunctionalNestedSetTest {
 
     }
 
-    
+
 }
