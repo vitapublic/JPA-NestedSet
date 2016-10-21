@@ -9,15 +9,18 @@
 
 package org.code_factory.jpa.nestedset;
 
-import org.code_factory.jpa.nestedset.model.Category;
-import org.junit.After;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import org.code_factory.jpa.nestedset.model.Category;
+import org.junit.After;
+import org.junit.Test;
 
 /**
  * @author Roman Borschel <roman@code-factory.org>
@@ -86,11 +89,11 @@ public class BasicTest extends FunctionalNestedSetTest {
     public void testFetchTree() {
         this.createBasicTree();
 
-        List<Node<Category>> tree = nsm.fetchTreeAsList(Category.class);
+        List<Node<Category>> tree = nsm.fetchTreeAsList(Category.class, this.progCat.getId());
         assert tree.size() == 3;
         Iterator<Node<Category>> iter = tree.iterator();
         for (int i = 0; i < 3; i++) {
-            Node node = iter.next();
+            Node<Category> node = iter.next();
             if (i == 0) {
                 assert 1 == node.getLeftValue();
                 assert 6 == node.getRightValue();
