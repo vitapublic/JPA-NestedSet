@@ -298,4 +298,22 @@ public class BasicTest extends FunctionalNestedSetTest {
 
         em.getTransaction().commit();
     }
+    
+    /**
+     * Check if a second-call to fetchTreeAsList() and the underlaying 
+     * method buildTree() will reset the rootNode children list.
+     * See Commit: 7854b9ae42c728ab32d63f6026c7bfe48a43f019
+     */
+    @Test
+    public void testBuildTree() {
+    	 this.createBasicTree();
+    	 
+    	 List<Node<Category>> tree = nsm.fetchTreeAsList(Category.class, this.progCat.getId());
+         assert tree.size() == 3;
+         assert tree.get(0).getChildren().size() == 2;
+         tree = nsm.fetchTreeAsList(Category.class, this.progCat.getId());
+         assert tree.size() == 3;
+         assert tree.get(0).getChildren().size() == 2;
+    
+    }
 }
