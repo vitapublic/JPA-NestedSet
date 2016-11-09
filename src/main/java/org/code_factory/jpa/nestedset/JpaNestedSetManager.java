@@ -172,6 +172,10 @@ public class JpaNestedSetManager implements NestedSetManager {
      */
     private <T extends NodeInfo> void buildTree(List<Node<T>> treeList, int maxLevel) {
         Node<T> rootNode = treeList.get(0);
+        
+        JpaNode<T> jpaRootNode = (JpaNode<T>)rootNode;
+        if(null != jpaRootNode.children)
+        	jpaRootNode.children.clear();
 
         Stack<JpaNode<T>> stack = new Stack<JpaNode<T>>();
         int level = rootNode.getLevel();

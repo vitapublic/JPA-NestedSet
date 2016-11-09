@@ -47,7 +47,7 @@ class JpaNode<T extends NodeInfo> implements Node<T> {
     /* "Caches" of the tree state reachable from this node. These are cleared whenever the
      *  node is rendered invalid due to tree modifications.
      */
-    private List<Node<T>> children;
+    protected List<Node<T>> children;
     private Node<T> parent;
     private List<Node<T>> ancestors;
     private List<Node<T>> descendants;
