@@ -183,6 +183,9 @@ public class JpaNestedSetManager implements NestedSetManager {
         for (Node<T> n : treeList) {
             JpaNode<T> node = (JpaNode<T>) n;
 
+            if(null != node.children)
+                node.children.clear();
+
             if (node.getLevel() < level) {
                 stack.pop();
             }
